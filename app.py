@@ -18,9 +18,7 @@ def page_not_fount(error):
 
 @app.route("/index")
 def index():
-    # Consultamos todos los alumnos de la tabla
     alumnos = Alumnos.query.all() 
-    # Pasamos la lista de alumnos a la plantilla
     return render_template("index.html", alumnos=alumnos)
 
 @app.route('/Alumnos', methods=['GET', 'POST'])
@@ -36,8 +34,21 @@ def alumnos():
         db.session.add(alum)
         db.session.commit()
         return redirect(url_for('index'))
+    
         
     return render_template("Alumnos.html", form=create_form)
+
+@app.route("/detalles", methods=['GET', 'POST'])
+def detalles():
+    if request.method=='GET':
+         id=request.args.get('id')
+         #select * from alumnos where id=id
+         alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+         nombre=alum1.nombre
+         apaterno=alum1.apaterno
+         email=alum1.email     
+    return render_template("detalles.html", id=id,nombre=nombre,
+                           apaterno=apaterno,emsil=email)
 
 
 if __name__ == '__main__':
