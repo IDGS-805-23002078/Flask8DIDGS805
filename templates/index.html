@@ -22,6 +22,7 @@
             <tr>
                 <th scope="col" class="px-6 py-3 font-medium">Matrícula (ID)</th>
                 <th scope="col" class="px-6 py-3 font-medium">Nombre Completo</th>
+                <th scope="col" class="px-6 py-3 font-medium">Teléfono</th>
                 <th scope="col" class="px-6 py-3 font-medium">Correo Electrónico</th>
                 <th scope="col" class="px-6 py-3 font-medium">Fecha de Registro</th>
                 <th scope="col" class="px-6 py-3 font-medium">Acción</th>
@@ -38,7 +39,7 @@
                         {{ alum.nombre[0] }}
                     </div>
                     <div class="ps-3">
-                        <div class="text-base font-semibold">{{ alum.nombre }} {{ alum.apaterno }}</div>
+                        <div class="text-base font-semibold">{{ alum.nombre }} {{ alum.apellidos }}</div>
                     </div>  
                 </th>
                 <td class="px-6 py-4 font-medium text-body">
@@ -49,8 +50,8 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class="flex space-x-3">
-                        <a href="#" class="font-medium text-fg-brand hover:underline">Editar</a>
-                        <a href="#" class="font-medium text-red-600 hover:underline">Borrar</a>
+                        <a href="modificar?id={{ alum.id }}" class="font-medium text-fg-brand hover:underline">Editar</a>
+                        <a href="eliminar?id={{ alum.id }}" class="font-medium text-red-600 hover:underline">Borrar</a>
                         <a href="detalles?id={{ alum.id }}" class="font-medium text-red-600 hover:underline">Detalles</a>
                     </div>
                 </td>

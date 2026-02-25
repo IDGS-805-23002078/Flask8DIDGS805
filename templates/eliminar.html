@@ -3,9 +3,9 @@
 {% import "_macros.html" as macros %} 
 
 <div class="max-w-md mx-auto mt-10">
-    <h2 class="text-2xl font-bold mb-5 text-heading">Registro de Alumnos</h2>
+    <h2 class="text-2xl font-bold mb-5 text-heading">Eliminar Alumnos</h2>
     
-    <form action="{{ url_for('alumnos') }}" method="POST" novalidate>
+    <form action="{{ url_for('eliminar') }}" method="POST" novalidate>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
         <div class="relative z-0 w-full mb-5 group">
@@ -30,20 +30,13 @@
             </div>
             
             <div class="relative z-0 w-full mb-5 group">
-                {{ form.telefono(class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:border-brand peer") }}
-                <label class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10">
-               Teléfono
-                </label>
-            </div>
-
-            <div class="relative z-0 w-full mb-5 group">
-                {{ form.correo(class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:border-brand peer", placeholder=" ") }}
+                {{ form.email(class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:border-brand peer", placeholder=" ") }}
                 <label class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10">Email</label>
             </div>
         </div>
 
         <button type="submit" class="text-white bg-brand hover:bg-brand-strong font-medium rounded-base text-sm px-4 py-2.5 w-full">
-            Registrar Alumno
+            Eliminar Alumno
         </button>
     </form>
 </div>
