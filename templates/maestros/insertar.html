@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Nuevo Maestro</h2>
+    
+    <form action="{{ url_for('maestros.insertar') }}" method="POST">
+        {{ form.csrf_token }}
+        
+        <div class="mb-4">
+            {{ form.nombre.label(class="block text-sm font-medium") }}
+            {{ form.nombre(class="w-full border rounded p-2") }}
+        </div>
+        
+        <div class="mb-4">
+            {{ form.apellidos.label(class="block text-sm font-medium") }}
+            {{ form.apellidos(class="w-full border rounded p-2") }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.especialidad.label(class="block text-sm font-medium") }}
+            {{ form.especialidad(class="w-full border rounded p-2") }}
+        </div>
+
+        <div class="mb-4">
+            {{ form.email.label(class="block text-sm font-medium") }}
+            {{ form.email(class="w-full border rounded p-2") }}
+        </div>
+
+        <div class="flex justify-end gap-2">
+            <a href="{{ url_for('maestros.lista_maestros') }}" class="bg-gray-500 text-white px-4 py-2 rounded">Cancelar</a>
+            <button type="submit" class="bg-brand text-white px-4 py-2 rounded">Guardar Maestro</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

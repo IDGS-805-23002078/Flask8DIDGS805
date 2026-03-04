@@ -3,12 +3,23 @@
 
 <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default p-4">
     <div class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 pb-4">
-        <div>
+        <div class="relative">
             <button id="dropdownDefaultButton2" data-dropdown-toggle="dropdown-2" class="inline-flex items-center justify-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none" type="button">
                 Acciones rápidas
                 <svg class="w-4 h-4 ms-1.5 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/></svg>
             </button>
+
+            <div id="dropdown-2" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton2">
+                  <li>
+                    <a href="{{ url_for('alumnos') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white font-bold text-brand">
+                        + Agregar Alumno
+                    </a>
+                  </li>
+                  </ul>
+            </div>
         </div>
+
         <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/></svg>
@@ -36,23 +47,26 @@
                 </td>
                 <th scope="row" class="flex items-center px-6 py-4 text-heading whitespace-nowrap">
                     <div class="w-10 h-10 rounded-full bg-brand-soft flex items-center justify-center text-brand font-bold">
-                        {{ alum.nombre[0] }}
+                        {{ alum.nombre[0] if alum.nombre else '?' }}
                     </div>
                     <div class="ps-3">
                         <div class="text-base font-semibold">{{ alum.nombre }} {{ alum.apellidos }}</div>
-                    </div>  
+                    </div> 
                 </th>
+                <td class="px-6 py-4">
+                    {{ alum.telefono }}
+                </td>
                 <td class="px-6 py-4 font-medium text-body">
                     {{ alum.email }}
                 </td>
                 <td class="px-6 py-4 italic">
-                    {{ alum.create_date.strftime('%d/%m/%Y') }}
+                    {{ alum.create_date.strftime('%d/%m/%Y') if alum.create_date else 'N/A' }}
                 </td>
                 <td class="px-6 py-4">
                     <div class="flex space-x-3">
-                        <a href="modificar?id={{ alum.id }}" class="font-medium text-fg-brand hover:underline">Editar</a>
-                        <a href="eliminar?id={{ alum.id }}" class="font-medium text-red-600 hover:underline">Borrar</a>
-                        <a href="detalles?id={{ alum.id }}" class="font-medium text-red-600 hover:underline">Detalles</a>
+                        <a href="{{ url_for('modificar', id=alum.id) }}" class="font-medium text-fg-brand hover:underline">Editar</a>
+                        <a href="{{ url_for('eliminar', id=alum.id) }}" class="font-medium text-red-600 hover:underline">Borrar</a>
+                        <a href="{{ url_for('detalles', id=alum.id) }}" class="font-medium text-blue-600 hover:underline">Detalles</a>
                     </div>
                 </td>
             </tr>

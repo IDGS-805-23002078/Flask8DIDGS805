@@ -5,13 +5,17 @@ db = SQLAlchemy()
 
 class Alumnos(db.Model):
     __tablename__ = 'alumnos'
-
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(50))
     apellidos = db.Column(db.String(50))
-    telefono = db.Column(db.VARCHAR(15))  # telefono como string
+    telefono = db.Column(db.String(15)) 
     email = db.Column(db.String(120))
-    create_date = db.Column(
-        db.DateTime,
-        default=datetime.datetime.now
-    )
+    create_date = db.Column(db.DateTime, default=datetime.datetime.now)
+
+class Maestros(db.Model):
+    __tablename__ = 'maestros'        
+    matricula = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(50))
+    apellidos = db.Column(db.String(50))
+    especialidad = db.Column(db.String(50))
+    email = db.Column(db.String(50))
