@@ -1,15 +1,8 @@
-from wtforms import Form, HiddenField 
-from wtforms import Form
-from wtforms import IntegerField, StringField, EmailField
-from wtforms import validators
+from flask_wtf import FlaskForm  
+from wtforms import StringField, IntegerField, EmailField, HiddenField, validators
 
-class UserForm(Form):
+class UserForm(FlaskForm): 
     id = HiddenField('id') 
-
-    nombre = StringField("Nombre", [
-        validators.DataRequired(message="El campo es requerido"),
-        validators.Length(min=4, max=50)
-    ])
 
     nombre = StringField("Nombre", [
         validators.DataRequired(message="El campo es requerido"),
@@ -29,10 +22,9 @@ class UserForm(Form):
         validators.Email(message="Ingresa un correo válido")
     ])
 
-class UserForm2(Form):
+class UserForm2(FlaskForm): 
     id = IntegerField("ID", [
-        validators.DataRequired(message="El campo es requerido"),
-        validators.NumberRange(min=1)
+        validators.Optional() 
     ])
 
     nombre = StringField("Nombre", [
@@ -42,7 +34,6 @@ class UserForm2(Form):
     apellidos = StringField("Apellidos", [
         validators.DataRequired(message="El campo es requerido")
     ])
-
 
     especialidad = StringField("Especialidad", [
         validators.Optional()

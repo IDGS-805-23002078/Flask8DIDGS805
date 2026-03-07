@@ -4,7 +4,7 @@
 <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default p-4">
     <div class="flex items-center justify-between flex-column md:flex-row flex-wrap space-y-4 md:space-y-0 pb-4">
         <div class="relative">
-            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown-maestros" class="inline-flex items-center justify-center text-body bg-neutral-secondary-medium border border-default-medium hover:bg-neutral-tertiary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium rounded-base text-sm px-3 py-2 focus:outline-none" type="button">
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown-maestros" class="inline-flex items-center justify-center text-body bg-neutral-secondary-medium border border-default-medium hover:bg-neutral-tertiary-medium rounded-base text-sm px-3 py-2 focus:outline-none" type="button">
                 Acciones rápidas
                 <svg class="w-4 h-4 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/></svg>
             </button>
@@ -12,7 +12,7 @@
             <div id="dropdown-maestros" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                 <ul class="py-2 text-sm text-gray-700">
                     <li>
-                        <a href="{{ url_for('maestros.insertar') }}" class="block px-4 py-2 hover:bg-gray-100 font-bold text-brand">
+                        <a href="{{ url_for('maestros.crear_maestro') }}" class="block px-4 py-2 hover:bg-gray-100 font-bold text-brand">
                             + Agregar Maestro
                         </a>
                     </li>
@@ -20,50 +20,54 @@
             </div>
         </div>
         <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/></svg>
-            </div>
-            <input type="text" id="table-search-maestros" class="block w-full max-w-96 ps-9 pe-3 py-2 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs" placeholder="Buscar maestro...">
+            <input type="text" id="table-search-maestros" class="block w-full max-w-96 ps-9 pe-3 py-2 bg-neutral-secondary-medium border border-default-medium text-sm rounded-base focus:ring-brand focus:border-brand" placeholder="Buscar maestro...">
         </div>
     </div>
 
-    <table class="w-full text-sm text-left rtl:text-right text-body">
-        <thead class="text-xs text-body uppercase bg-neutral-secondary-medium border-b border-t border-default-medium">
+    <table class="w-full text-sm text-left text-body">
+        <thead class="text-xs uppercase bg-neutral-secondary-medium border-b border-t border-default-medium">
             <tr>
                 <th scope="col" class="px-6 py-3 font-medium">Nombre Completo</th>
                 <th scope="col" class="px-6 py-3 font-medium">Especialidad</th>
                 <th scope="col" class="px-6 py-3 font-medium">Correo Electrónico</th>
-                <th scope="col" class="px-6 py-3 font-medium">Acción</th>
+                <th scope="col" class="px-6 py-3 font-medium text-center">Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for maes in maestros %}
             <tr class="bg-neutral-primary-soft border-b border-default hover:bg-neutral-secondary-medium">
-                <th scope="row" class="flex items-center px-6 py-4 text-heading whitespace-nowrap">
-                    <div class="w-10 h-10 rounded-full bg-brand-soft flex items-center justify-center text-brand font-bold">
-                        {{ maes.especialidad[0] | upper if maes.especialidad else 'M' }} 
-                    </div>
-                    <div class="ps-3">
-                        <div class="text-base font-semibold">{{ maes.nombre }} {{ maes.apellidos }}</div>
-                    </div>  
-                </th>
                 <td class="px-6 py-4">
-                    {{ maes.especialidad }}
-                </td>
-                <td class="px-6 py-4 font-medium text-body">
-                    {{ maes.email }}
-                </td>
-                <td class="px-6 py-4">
-                    <div class="flex space-x-3">
-                        <a href="{{ url_for('maestros.modificar_maestro', id=maes.matricula) }}" class="font-medium text-fg-brand hover:underline">Editar</a>
-                        <a href="{{ url_for('maestros.eliminar_maestro', id=maes.matricula) }}" class="font-medium text-red-600 hover:underline">Borrar</a>
-                        <a href="{{ url_for('maestros.detalles_maestro', id=maes.matricula) }}" class="font-medium text-blue-600 hover:underline">Detalles</a>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 rounded-full bg-brand-soft flex items-center justify-center text-brand font-bold">
+                            {{ maes.nombre[0] | upper if maes.nombre else 'M' }} 
+                        </div>
+                        <div class="ps-3">
+                            <div class="text-base font-semibold text-heading">{{ maes.nombre }} {{ maes.apellidos }}</div>
+                            <div class="text-xs text-gray-500">ID: {{ maes.matricula }}</div>
+                        </div>  
                     </div>
                 </td>
+                <td class="px-6 py-4">
+                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                        {{ maes.especialidad or 'No asignada' }}
+                    </span>
+                </td>
+                <td class="px-6 py-4 font-medium">{{ maes.email }}</td>
+                <td class="px-6 py-4">
+                    <div class="flex justify-center space-x-3">
+                        <a href="{{ url_for('maestros.modificar_maestro', id=maes.matricula) }}" class="text-brand hover:underline">Editar</a>
+                        <a href="{{ url_for('maestros.detalles_maestro', id=maes.matricula) }}" class="text-blue-600 hover:underline">Detalles</a>
+                        <a href="{{ url_for('maestros.eliminar_maestro', id=maes.matricula) }}" 
+                           onclick="return confirm('¿Estás seguro?')" class="text-red-600 hover:underline">Borrar</a>
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="px-6 py-10 text-center text-gray-500">No se encontraron maestros registrados.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-
 {% endblock %}

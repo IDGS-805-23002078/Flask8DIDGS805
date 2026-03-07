@@ -2,7 +2,6 @@ from flask import render_template, request, redirect, url_for, Blueprint
 import forms
 from models import db, Maestros 
 
-
 maestros_bp = Blueprint('maestros', __name__)
 
 @maestros_bp.route('/Maestros', methods=['GET', 'POST'])
@@ -14,8 +13,8 @@ def lista_maestros():
                            maestros=todos_maestros)
 
 @maestros_bp.route('/Maestros/agregar', methods=['GET', 'POST'])
-def insertar():  
-    form = forms.UserForm2(request.form)
+def crear_maestro(): 
+    form = forms.UserForm2(request.form if request.method == 'POST' else None)
     
     if request.method == 'POST' and form.validate():
         nuevo_maes = Maestros(
@@ -47,13 +46,12 @@ def modificar_maestro():
     if request.method == 'POST' and form.validate():
         id = form.id.data
         maes = Maestros.query.get(id)
-        
-        maes.nombre = form.nombre.data
-        maes.apellidos = form.apellidos.data
-        maes.email = form.email.data
-        maes.especialidad = form.especialidad.data 
-
-        db.session.commit() 
+        if maes:
+            maes.nombre = form.nombre.data
+            maes.apellidos = form.apellidos.data
+            maes.email = form.email.data
+            maes.especialidad = form.especialidad.data 
+            db.session.commit() 
         return redirect(url_for('maestros.lista_maestros'))
 
     return render_template("maestros/editarMaestros.html", form=form)

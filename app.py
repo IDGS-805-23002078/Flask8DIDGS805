@@ -5,6 +5,8 @@ from config import DevelopmentConfig
 import forms
 from models import db, Alumnos
 from maestros.routers import maestros_bp 
+from cursos import cursos
+
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
@@ -14,6 +16,7 @@ app.register_blueprint(maestros_bp)
 db.init_app(app)
 csrf = CSRFProtect(app)
 migrate = Migrate(app, db)
+app.register_blueprint(cursos)
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -23,6 +26,17 @@ def page_not_found(error):
 def index():
     alumnos = Alumnos.query.all()
     return render_template("index.html", alumnos=alumnos)
+
+@app.route("/alumno/<int:id>/cursos")
+def cursos_alumno(id):
+
+    alumno = Alumnos.query.get_or_404(id)
+
+    return render_template(
+        "alumno_cursos.html",
+        alumno=alumno
+    )
+
 
 @app.route('/Alumnos', methods=['GET', 'POST'])
 def alumnos():
@@ -109,6 +123,26 @@ def eliminar():
         return redirect(url_for("index"))
 
     return render_template("eliminar.html", form=create_form)
+
+@app.route("/alumno/buscar", methods=['GET'])
+def buscar_historial_alumno():
+    matricula = request.args.get('matricula')
+    
+    if not matricula:
+        flash("Por favor ingresa una matrícula", "warning")
+        return redirect(url_for('index'))
+    
+    alumno = Alumnos.query.get(matricula)
+    
+    if not alumno:
+        flash(f"No se encontró ningún alumno con la matrícula {matricula}", "danger")
+        return redirect(url_for('index'))
+
+    return render_template(
+        "alumno_historial.html",
+        alumno=alumno,
+        cursos=alumno.cursos
+    )
 
 
 if __name__ == '__main__':

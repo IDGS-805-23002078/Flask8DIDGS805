@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block container %}
+<div class="container mx-auto p-8">
+    <div class="mb-8 border-b pb-4 flex justify-between items-end">
+        <div>
+            <h3 class="text-3xl font-extrabold text-gray-900">Historial Académico</h3>
+            <p class="text-lg text-gray-600">Alumno: <span class="font-semibold">{{ alumno.nombre }} {{ alumno.apellidos }}</span></p>
+            <p class="text-sm text-gray-500">Matrícula: #{{ alumno.id }}</p>
+        </div>
+        <a href="{{ url_for('index') }}" class="text-blue-700 font-bold hover:underline">
+            &larr; Volver al Inicio
+        </a>
+    </div>
+
+    <h4 class="text-xl font-bold text-gray-800 mb-4">Cursos Inscritos</h4>
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">ID Curso</th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Nombre del Curso</th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase">Maestro</th>
+                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-500 uppercase">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for curso in cursos %}
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-6 py-4 whitespace-nowrap font-bold text-gray-900">{{ curso.id }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ curso.nombre }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700">
+                        {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-bold">
+                        <div class="flex justify-center space-x-4">
+                            <a href="{{ url_for('cursos.detalles_curso', id=curso.id) }}" class="text-blue-700 hover:underline">Ver Curso</a>
+                            <button class="text-red-600 hover:underline">Dar de baja</button>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="px-6 py-10 text-center text-gray-500 italic">
+                        Este alumno no tiene cursos inscritos todavía.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

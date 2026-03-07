@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block container %}
+<div class="container mx-auto p-8">
+    <div class="mb-8 border-b pb-4">
+        <h3 class="text-3xl font-extrabold text-gray-900">Curso: {{ curso.nombre }}</h3>
+        <p class="text-lg text-gray-600">Maestro: <span class="font-semibold">{{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}</span></p>
+    </div>
+
+    <div class="flex items-center justify-between mb-6">
+        <form action="{{ url_for('cursos.buscar_alumno_en_curso', curso_id=curso.id) }}" method="GET" class="flex items-center space-x-4">
+            <div class="relative">
+                <input type="number" name="matricula" placeholder="Buscar matrícula..." 
+                       value="{{ busqueda if busqueda }}"
+                       class="w-64 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <button type="submit" class="px-6 py-2 bg-black text-white font-bold rounded-md hover:bg-gray-800 transition">
+                BUSCAR
+            </button>
+            {% if busqueda %}
+                <a href="{{ url_for('cursos.buscar_alumno_en_curso', curso_id=curso.id) }}" class="text-sm text-gray-500 hover:text-black">Limpiar filtro</a>
+            {% endif %}
+        </form>
+        
+        <a href="{{ url_for('cursos.listar_cursos') }}" class="text-blue-700 font-bold hover:underline">
+            &larr; Volver a Cursos
+        </a>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Matrícula (ID)</th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Nombre Completo</th>
+                    <th class="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Correo Electrónico</th>
+                    <th class="px-6 py-4 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for alumno in alumnos %}
+                <tr class="hover:bg-gray-50 transition">
+                    <td class="px-6 py-4 whitespace-nowrap font-bold text-gray-900">{{ alumno.id }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ alumno.nombre }} {{ alumno.apellidos }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ alumno.email }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-bold">
+                        <div class="flex justify-center space-x-4">
+                            <a href="{{ url_for('detalles', id=alumno.id) }}" class="text-blue-700 hover:underline">Detalles</a>
+                            <button class="text-blue-700 hover:underline">Dar de baja</button>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="px-6 py-10 text-center text-gray-500 italic">
+                        {% if busqueda %}
+                            No se encontró el alumno "{{ busqueda }}".
+                        {% else %}
+                            No hay alumnos inscritos en este curso.
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

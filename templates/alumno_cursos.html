@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block container %}
+<div class="p-6">
+
+    <h3 class="text-lg font-semibold mb-4">
+        Cursos de {{ alumno.nombre }} {{ alumno.apaterno }}
+    </h3>
+
+    <table class="table-auto w-full border">
+        <thead class="bg-gray-200">
+            <tr>
+                <th class="p-2">ID</th>
+                <th class="p-2">Curso</th>
+                <th class="p-2">Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for curso in alumno.cursos %}
+            <tr class="border-t">
+                <td class="p-2">{{ curso.id }}</td>
+                <td class="p-2">{{ curso.nombre }}</td>
+                <td class="p-2">{{ curso.descripcion }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3" class="p-2 text-center">
+                    No está inscrito en ningún curso
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

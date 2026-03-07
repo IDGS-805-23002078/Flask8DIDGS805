@@ -14,18 +14,32 @@
                   <li>
                     <a href="{{ url_for('alumnos') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white font-bold text-brand">
                         + Agregar Alumno
+                  <li>
+                    <a href="{{ url_for('cursos.listar_cursos') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white font-bold text-brand">
+                        Ver cursos
                     </a>
                   </li>
                   </ul>
             </div>
+        </div>
         </div>
 
         <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg class="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/></svg>
             </div>
-            <input type="text" id="input-group-1" class="block w-full max-w-96 ps-9 pe-3 py-2 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body" placeholder="Buscar alumno...">
-        </div>
+            
+        <div>
+        <form action="{{ url_for('buscar_historial_alumno') }}" method="GET" class="flex gap-2">
+        <input type="text" 
+               name="matricula" 
+               id="input-group-1" 
+               class="block w-full max-w-96 ps-9 pe-3 py-2 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body" 
+               placeholder="Matrícula para buscar cursos">
+<button type="submit" class="px-4 py-2 bg-black text-white text-xs font-bold rounded-base hover:bg-gray-800 transition-colors">
+            BUSCAR
+        </button></form>
+</div>
     </div>
 
     <table class="w-full text-sm text-left rtl:text-right text-body">
@@ -70,6 +84,7 @@
                     </div>
                 </td>
             </tr>
+            
             {% endfor %}
         </tbody>
     </table>

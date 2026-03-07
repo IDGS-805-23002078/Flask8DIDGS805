@@ -2,47 +2,47 @@
 {% block container %}
 {% import "_macros.html" as macros %} 
 
-<div class="max-w-md mx-auto mt-10">
-    <h2 class="text-2xl font-bold mb-5 text-heading">Modificar Maestro</h2>
+<div class="max-w-md mx-auto mt-10 p-6 bg-white border border-gray-200 rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-6 text-gray-900">Modificar Maestro</h2>
     
     <form action="{{ url_for('maestros.modificar_maestro') }}" method="POST" novalidate>
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
-        <div class="relative z-0 w-full mb-5 group">
-            {{ form.id(class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:border-brand peer", readonly=True) }}
-            <label class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10">Matrícula (no editable)</label>
+        <div class="relative z-0 w-full mb-6 group">
+            {{ form.id(class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", readonly=True) }}
+            <label class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Matrícula (no editable)</label>
         </div>
 
-        <div class="relative z-0 w-full mb-5 group">
-            {{ form.nombre(class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:border-brand peer", placeholder=" ") }}
-            <label class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10">Nombre</label>
+        <div class="relative z-0 w-full mb-6 group">
+            {{ form.nombre(class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", placeholder=" ") }}
+            <label class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nombre</label>
         </div>
 
         <div class="grid md:grid-cols-2 md:gap-6">
-            <div class="relative z-0 w-full mb-5 group">
-                {{ form.apellidos(class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:border-brand peer", placeholder=" ") }}
-                <label class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10">Apellidos</label>
+            <div class="relative z-0 w-full mb-6 group">
+                {{ form.apellidos(class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", placeholder=" ") }}
+                <label class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Apellidos</label>
             </div>
 
-            <div class="relative z-0 w-full mb-5 group">
-                {{ form.especialidad(class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:border-brand peer", placeholder=" ") }}
-                <label class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10">
+            <div class="relative z-0 w-full mb-6 group">
+                {{ form.especialidad(class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", placeholder=" ") }}
+                <label class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                     Especialidad
                 </label>
             </div>
         </div>
         
-        <div class="relative z-0 w-full mb-5 group">
-            {{ form.email(class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium focus:outline-none focus:border-brand peer", placeholder=" ") }}
-            <label class="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10">Email</label>
+        <div class="relative z-0 w-full mb-6 group">
+            {{ form.email(class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer", placeholder=" ") }}
+            <label class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
         </div>
 
-        <button type="submit" class="text-white bg-brand hover:bg-brand-strong font-medium rounded-base text-sm px-4 py-2.5 w-full">
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 w-full text-center">
             Guardar Cambios
         </button>
         
         <div class="mt-4 text-center">
-            <a href="{{ url_for('maestros.lista_maestros') }}" class="text-sm text-body hover:underline">Cancelar y regresar</a>
+            <a href="{{ url_for('maestros.lista_maestros') }}" class="text-sm text-blue-600 hover:underline">Cancelar y regresar</a>
         </div>
     </form>
 </div>
